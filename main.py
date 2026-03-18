@@ -854,7 +854,6 @@ class GameLoop:
 
         if reasoning:
             logger.debug(f"  {D}└─ {reasoning[:110]}{R}")
-            logger.info(f"DECISION: {atype} | {reasoning[:100]}")
 
     def _poll_for_final_rank(self, turn_count: int, timeout: int = 400) -> int:
         """

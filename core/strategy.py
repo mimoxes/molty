@@ -200,33 +200,11 @@ class StrategyEngine:
         # P1: CRITICAL HEAL
         # ==========================================================
         if intel["hp"] <= self.analyzer.hp_critical:
-<<<<<<< HEAD
-            # If critical and enemies present, prioritize escape over healing
-            if intel["local_agents"] or intel["local_monsters"]:
-                escape = self.analyzer.safest_escape_region(intel)
-                if escape:
-                    reason = (f"Critical HP ({intel['hp']:.0f}) + enemies → "
-                              f"fleeing to {escape[:8]}")
-                    self.last_action_type = "move"
-                    self.last_region_id_for_facility = intel["region_id"]
-                    return {"type": "move", "regionId": escape}, reason, free_actions
-
-=======
->>>>>>> 71dab4738c410fd833903d12d99a1f02cf9f9c47
             heal_item = self._find_best_heal_item(intel["inventory"])
             if heal_item:
                 reason = f"CRITICAL HP ({intel['hp']}/100) - using {heal_item.get('typeId')}"
                 return {"type": "use_item", "itemId": heal_item["id"]}, reason, free_actions
 
-<<<<<<< HEAD
-            # No heal item → REST
-            # Jangan terus explore/move, nanti ketemu musuh dalam kondisi lemah!
-            reason = (f"Critical HP ({intel['hp']:.0f}) no heal items → RESTING "
-                      f"(conserve HP, avoid combat)")
-            logger.warning(f"HP KRITIS {intel['hp']:.0f} — REST paksa!")
-            self.last_action_type = "rest"
-            return {"type": "rest"}, reason, free_actions
-=======
             # No heal item → flee jika ada musuh, REST jika aman
             if intel["local_agents"] or intel["local_monsters"]:
                 escape = self.analyzer.safest_escape_region(intel)
@@ -243,7 +221,6 @@ class StrategyEngine:
                 logger.warning(f"HP KRITIS {intel['hp']:.0f} — REST paksa!")
                 self.last_action_type = "rest"
                 return {"type": "rest"}, reason, free_actions
->>>>>>> 71dab4738c410fd833903d12d99a1f02cf9f9c47
 
         # ==========================================================
         # P1b: ENDGAME HP (Day 11+) — heal to HP target for ranking
@@ -261,27 +238,6 @@ class StrategyEngine:
                     return {"type": "use_item", "itemId": heal_item["id"]}, reason, free_actions
 
         # ==========================================================
-<<<<<<< HEAD
-        # P1c: EARLY CROWD AVOIDANCE — flee if too many agents/monsters nearby
-        # ==========================================================
-        if phase == "early" and (len(intel["local_agents"]) >= 2 or len(intel["local_monsters"]) >= 2):
-            escape = self.analyzer.safest_escape_region(intel, self.known_dz_regions)
-            if escape:
-                reason = (f"Early game crowd ({len(intel['local_agents'])} agents, "
-                          f"{len(intel['local_monsters'])} monsters) → "
-                          f"fleeing to {escape[:8]}")
-                logger.info(
-                    f"EARLY CROWD FLEE: agents={len(intel['local_agents'])} "
-                    f"monsters={len(intel['local_monsters'])} "
-                    f"from {intel['region_name']} to {escape[:8]}"
-                )
-                self.last_action_type = "move"
-                self.last_region_id_for_facility = intel["region_id"]
-                return {"type": "move", "regionId": escape}, reason, free_actions
-
-        # ==========================================================
-=======
->>>>>>> 71dab4738c410fd833903d12d99a1f02cf9f9c47
         # P2: LOW HP (not critical) — use heal if available
         # ==========================================================
         hp_threshold = weights.get("heal_threshold", 0.30) * 100

@@ -28,24 +28,15 @@ GAME_MAP_SIZE = "medium"         # "medium" | "large" | "massive"
 # =============================================================================
 # SURVIVAL THRESHOLDS
 # =============================================================================
-<<<<<<< HEAD
-HP_CRITICAL = 30
-HP_LOW = 35
-=======
 HP_CRITICAL = 65
 HP_LOW = 45
->>>>>>> 71dab4738c410fd833903d12d99a1f02cf9f9c47
 EP_MIN_ATTACK = 2                # Min EP required to attack
 EP_REST_THRESHOLD = 3
 
 # =============================================================================
 # COMBAT DECISION THRESHOLDS
 # =============================================================================
-<<<<<<< HEAD
-WIN_PROBABILITY_ATTACK = 0.75
-=======
 WIN_PROBABILITY_ATTACK = 0.65
->>>>>>> 71dab4738c410fd833903d12d99a1f02cf9f9c47
 WIN_PROBABILITY_AGGRESSIVE = 0.80 # Use aggressive tactics if >= 80%
 
 # =============================================================================
